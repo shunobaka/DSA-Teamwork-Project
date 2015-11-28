@@ -38,45 +38,9 @@
             return PlayerAction.CheckOrCall();
         }
 
-        private PlayerAction GetActionForRiver(GetTurnContext context)
+        private PlayerAction GetActionForPreFlop(GetTurnContext context)
         {
-            var playHand = HandStrengthValuation.River(this.FirstCard, this.SecondCard);
-            if (playHand == CardValuationType.Unplayable)
-            {
-                if (context.CanCheck)
-                {
-                    return PlayerAction.CheckOrCall();
-                }
-                else
-                {
-                    return PlayerAction.Fold();
-                }
-            }
-
-            if (playHand == CardValuationType.Risky)
-            {
-                var smallBlindsTimes = RandomProvider.Next(1, 8);
-                return PlayerAction.Raise(context.SmallBlind * smallBlindsTimes);
-            }
-
-            if (playHand == CardValuationType.Recommended)
-            {
-                var smallBlindsTimes = RandomProvider.Next(6, 14);
-                return PlayerAction.Raise(context.SmallBlind * smallBlindsTimes);
-            }
-
-            if (playHand == CardValuationType.StronglyRemommended)
-            {
-                var smallBlindsTimes = RandomProvider.Next(14, 28);
-                return PlayerAction.Raise(context.SmallBlind * smallBlindsTimes);
-            }
-
-            return PlayerAction.CheckOrCall();
-        }
-
-        private PlayerAction GetActionForTurn(GetTurnContext context)
-        {
-            var playHand = HandStrengthValuation.Turn(this.FirstCard, this.SecondCard);
+            var playHand = HandStrengthValuation.PreFlop(this.FirstCard, this.SecondCard);
             if (playHand == CardValuationType.Unplayable)
             {
                 if (context.CanCheck)
@@ -146,9 +110,45 @@
             return PlayerAction.CheckOrCall();
         }
 
-        private PlayerAction GetActionForPreFlop(GetTurnContext context)
+        private PlayerAction GetActionForTurn(GetTurnContext context)
         {
-            var playHand = HandStrengthValuation.PreFlop(this.FirstCard, this.SecondCard);
+            var playHand = HandStrengthValuation.Turn(this.FirstCard, this.SecondCard);
+            if (playHand == CardValuationType.Unplayable)
+            {
+                if (context.CanCheck)
+                {
+                    return PlayerAction.CheckOrCall();
+                }
+                else
+                {
+                    return PlayerAction.Fold();
+                }
+            }
+
+            if (playHand == CardValuationType.Risky)
+            {
+                var smallBlindsTimes = RandomProvider.Next(1, 8);
+                return PlayerAction.Raise(context.SmallBlind * smallBlindsTimes);
+            }
+
+            if (playHand == CardValuationType.Recommended)
+            {
+                var smallBlindsTimes = RandomProvider.Next(6, 14);
+                return PlayerAction.Raise(context.SmallBlind * smallBlindsTimes);
+            }
+
+            if (playHand == CardValuationType.StronglyRemommended)
+            {
+                var smallBlindsTimes = RandomProvider.Next(14, 28);
+                return PlayerAction.Raise(context.SmallBlind * smallBlindsTimes);
+            }
+
+            return PlayerAction.CheckOrCall();
+        }
+
+        private PlayerAction GetActionForRiver(GetTurnContext context)
+        {
+            var playHand = HandStrengthValuation.River(this.FirstCard, this.SecondCard);
             if (playHand == CardValuationType.Unplayable)
             {
                 if (context.CanCheck)
