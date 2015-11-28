@@ -77,50 +77,49 @@
                 return CardValuationType.StronglyRecommended;
             }
         }
-    }
 
-    // Feeling lucky punk!
-    public static CardValuationType Turn(Card firstCard, Card secondCard)
-    {
-        var random = new Random();
-
-        switch (random.Next(0, 5))
+        // Feeling lucky punk!
+        public static CardValuationType Turn(Card firstCard, Card secondCard)
         {
-            case 0:
-                return CardValuationType.Unplayable;
-            case 1:
-                return CardValuationType.NotRecommended;
-            case 2:
-                return CardValuationType.Risky;
-            case 3:
-                return CardValuationType.Recommended;
-            case 4:
-                return CardValuationType.StronglyRecommended;
-            default:
-                return CardValuationType.Unplayable;
+            var random = new Random();
+
+            switch (random.Next(0, 5))
+            {
+                case 0:
+                    return CardValuationType.Unplayable;
+                case 1:
+                    return CardValuationType.NotRecommended;
+                case 2:
+                    return CardValuationType.Risky;
+                case 3:
+                    return CardValuationType.Recommended;
+                case 4:
+                    return CardValuationType.StronglyRecommended;
+                default:
+                    return CardValuationType.Unplayable;
+            }
+        }
+
+        // Feeling lucky punk!
+        public static CardValuationType River(Card firstCard, Card secondCard)
+        {
+            var random = new Random();
+
+            switch (random.Next(0, 5))
+            {
+                case 0:
+                    return CardValuationType.Unplayable;
+                case 1:
+                    return CardValuationType.NotRecommended;
+                case 2:
+                    return CardValuationType.Risky;
+                case 3:
+                    return CardValuationType.Recommended;
+                case 4:
+                    return CardValuationType.StronglyRecommended;
+                default:
+                    return CardValuationType.Unplayable;
+            }
         }
     }
-
-    // Feeling lucky punk!
-    public static CardValuationType River(Card firstCard, Card secondCard)
-    {
-        var random = new Random();
-
-        switch (random.Next(0, 5))
-        {
-            case 0:
-                return CardValuationType.Unplayable;
-            case 1:
-                return CardValuationType.NotRecommended;
-            case 2:
-                return CardValuationType.Risky;
-            case 3:
-                return CardValuationType.Recommended;
-            case 4:
-                return CardValuationType.StronglyRecommended;
-            default:
-                return CardValuationType.Unplayable;
-        }
-    }
-}
 }

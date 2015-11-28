@@ -36,11 +36,14 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="project.json" />
+    <None Include="stylecop.json" />
+    <None Include="stylecop1.json" />
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\CardValuationType.cs" />
     <Compile Include="Helpers\HandStrengthValuation.cs" />
+    <Compile Include="Helpers\GameOutsValuation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TurinPlayer.cs" />
   </ItemGroup>

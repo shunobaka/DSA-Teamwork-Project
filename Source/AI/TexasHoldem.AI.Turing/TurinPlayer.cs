@@ -76,7 +76,7 @@
 
         private PlayerAction GetActionForFlop(GetTurnContext context)
         {
-            var playHand = HandStrengthValuation.Flop(this.CommunityCards.FirstOrDefault(), this.SecondCard);
+            var playHand = HandStrengthValuation.Flop(this.FirstCard, this.SecondCard, this.CommunityCards);
             if (playHand == CardValuationType.Unplayable)
             {
                 if (context.CanCheck)
