@@ -68,6 +68,9 @@
     <Compile Include="GameSimulators\SmartVsAlwaysCallPlayerSimulation.cs" />
     <Compile Include="GameSimulators\SmartVsDummyPlayerSimulator.cs" />
     <Compile Include="GameSimulators\SmartVsSmartPlayerSimulator.cs" />
+    <Compile Include="GameSimulators\TuringVsAlwaysCallPlayer.cs" />
+    <Compile Include="GameSimulators\TuringVsASmartPlayer.cs" />
+    <Compile Include="GameSimulators\TuringVsDummyPlayer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -83,6 +86,10 @@
     <ProjectReference Include="..\..\AI\TexasHoldem.AI.SmartPlayer\TexasHoldem.AI.SmartPlayer.csproj">
       <Project>{E7BA8017-D56E-485C-81D1-A1CCDAAE624F}</Project>
       <Name>TexasHoldem.AI.SmartPlayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AI\TexasHoldem.AI.Turing\TexasHoldem.AI.Turing.csproj">
+      <Project>{5ebffaaf-9a32-4c58-a051-0b91df6c679c}</Project>
+      <Name>TexasHoldem.AI.Turing</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\TexasHoldem.Logic\TexasHoldem.Logic.csproj">
       <Project>{BCF99E8B-2025-444F-83C7-24542FCF33DF}</Project>

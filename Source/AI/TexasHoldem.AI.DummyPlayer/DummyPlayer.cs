@@ -35,11 +35,8 @@
                 // Call
                 return PlayerAction.CheckOrCall();
             }
-            else
-            {
-                // Fold
-                return PlayerAction.Fold();
-            }
+
+            return PlayerAction.Fold();
         }
     }
 }

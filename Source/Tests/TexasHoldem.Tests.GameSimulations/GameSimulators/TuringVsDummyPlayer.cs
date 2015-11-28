@@ -1,16 +1,16 @@
 ﻿namespace TexasHoldem.Tests.GameSimulations.GameSimulators
 {
-    using TexasHoldem.AI.SmartPlayer;
+    using TexasHoldem.AI.DummyPlayer;
     using TexasHoldem.AI.Turing;
     using TexasHoldem.Logic.Players;
 
     /// <summary>
     /// For performance profiling
     /// </summary>
-    public class TuringVsASmartPlayer : BaseGameSimulator
+    public class TuringVsDummyPlayer : BaseGameSimulator
     {
         private readonly IPlayer firstPlayer = new TurinPlayer();
-        private readonly IPlayer secondPlayer = new SmartPlayer();
+        private readonly IPlayer secondPlayer = new DummyPlayer();
 
         protected override IPlayer GetFirstPlayer()
         {

@@ -9,9 +9,8 @@
         public static void Main()
         {
             SimulateGames(new TuringVsASmartPlayer());
-
-            Console.WriteLine("end");
-            Console.ReadLine();
+            SimulateGames(new TuringVsAlwaysCallPlayer());
+            SimulateGames(new TuringVsDummyPlayer());
         }
 
         private static void SimulateGames(IGameSimulator gameSimulator)
