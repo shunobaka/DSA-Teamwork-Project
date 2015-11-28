@@ -1,6 +1,7 @@
 ﻿namespace TexasHoldem.AI.Turing.Helpers
 {
     using System;
+    using System.Collections.Generic;
     using TexasHoldem.Logic.Cards;
 
     public static class HandStrengthValuation
@@ -47,76 +48,79 @@
                 case 3:
                     return CardValuationType.Recommended;
                 case 4:
-                    return CardValuationType.StronglyRemommended;
+                    return CardValuationType.StronglyRecommended;
                 default:
                     return CardValuationType.Unplayable;
             }
         }
 
         // Feeling lucky punk!
-        public static CardValuationType Flop(Card firstCard, Card secondCard)
+        public static CardValuationType Flop(Card firstCard, Card secondCard, IEnumerable<Card> comunityCards)
         {
-            var random = new Random();
+            var outs = new GameOutsValuation();
+            var outsResult = outs.GetOuts(firstCard, secondCard, comunityCards);
 
-            switch (random.Next(0, 5))
+            if (outsResult < 3)
             {
-                case 0:
-                    return CardValuationType.Unplayable;
-                case 1:
-                    return CardValuationType.NotRecommended;
-                case 2:
-                    return CardValuationType.Risky;
-                case 3:
-                    return CardValuationType.Recommended;
-                case 4:
-                    return CardValuationType.StronglyRemommended;
-                default:
-                    return CardValuationType.Unplayable;
+                return CardValuationType.Unplayable;
             }
-        }
-
-        // Feeling lucky punk!
-        public static CardValuationType Turn(Card firstCard, Card secondCard)
-        {
-            var random = new Random();
-
-            switch (random.Next(0, 5))
+            else if (outsResult < 7)
             {
-                case 0:
-                    return CardValuationType.Unplayable;
-                case 1:
-                    return CardValuationType.NotRecommended;
-                case 2:
-                    return CardValuationType.Risky;
-                case 3:
-                    return CardValuationType.Recommended;
-                case 4:
-                    return CardValuationType.StronglyRemommended;
-                default:
-                    return CardValuationType.Unplayable;
+                return CardValuationType.Risky;
             }
-        }
-
-        // Feeling lucky punk!
-        public static CardValuationType River(Card firstCard, Card secondCard)
-        {
-            var random = new Random();
-
-            switch (random.Next(0, 5))
+            else if (outsResult < 12)
             {
-                case 0:
-                    return CardValuationType.Unplayable;
-                case 1:
-                    return CardValuationType.NotRecommended;
-                case 2:
-                    return CardValuationType.Risky;
-                case 3:
-                    return CardValuationType.Recommended;
-                case 4:
-                    return CardValuationType.StronglyRemommended;
-                default:
-                    return CardValuationType.Unplayable;
+                return CardValuationType.Recommended;
+            }
+            else
+            {
+                return CardValuationType.StronglyRecommended;
             }
         }
     }
+
+    // Feeling lucky punk!
+    public static CardValuationType Turn(Card firstCard, Card secondCard)
+    {
+        var random = new Random();
+
+        switch (random.Next(0, 5))
+        {
+            case 0:
+                return CardValuationType.Unplayable;
+            case 1:
+                return CardValuationType.NotRecommended;
+            case 2:
+                return CardValuationType.Risky;
+            case 3:
+                return CardValuationType.Recommended;
+            case 4:
+                return CardValuationType.StronglyRecommended;
+            default:
+                return CardValuationType.Unplayable;
+        }
+    }
+
+    // Feeling lucky punk!
+    public static CardValuationType River(Card firstCard, Card secondCard)
+    {
+        var random = new Random();
+
+        switch (random.Next(0, 5))
+        {
+            case 0:
+                return CardValuationType.Unplayable;
+            case 1:
+                return CardValuationType.NotRecommended;
+            case 2:
+                return CardValuationType.Risky;
+            case 3:
+                return CardValuationType.Recommended;
+            case 4:
+                return CardValuationType.StronglyRecommended;
+            default:
+                return CardValuationType.Unplayable;
+        }
+    }
+}
 }

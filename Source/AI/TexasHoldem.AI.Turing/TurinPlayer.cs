@@ -65,7 +65,7 @@
                 return PlayerAction.Raise(context.SmallBlind * smallBlindsTimes);
             }
 
-            if (playHand == CardValuationType.StronglyRemommended)
+            if (playHand == CardValuationType.StronglyRecommended)
             {
                 var smallBlindsTimes = RandomProvider.Next(14, 28);
                 return PlayerAction.Raise(int.MaxValue);
@@ -101,7 +101,7 @@
                 return PlayerAction.Raise(context.SmallBlind * smallBlindsTimes);
             }
 
-            if (playHand == CardValuationType.StronglyRemommended)
+            if (playHand == CardValuationType.StronglyRecommended)
             {
                 var smallBlindsTimes = RandomProvider.Next(14, 28);
                 return PlayerAction.Raise(context.SmallBlind * smallBlindsTimes);
@@ -137,7 +137,7 @@
                 return PlayerAction.Raise(context.SmallBlind * smallBlindsTimes);
             }
 
-            if (playHand == CardValuationType.StronglyRemommended)
+            if (playHand == CardValuationType.StronglyRecommended)
             {
                 var smallBlindsTimes = RandomProvider.Next(14, 28);
                 return PlayerAction.Raise(context.SmallBlind * smallBlindsTimes);
@@ -173,7 +173,7 @@
                 return PlayerAction.Raise(context.SmallBlind * smallBlindsTimes);
             }
 
-            if (playHand == CardValuationType.StronglyRemommended)
+            if (playHand == CardValuationType.StronglyRecommended)
             {
                 var smallBlindsTimes = RandomProvider.Next(14, 28);
                 return PlayerAction.Raise(context.SmallBlind * smallBlindsTimes);

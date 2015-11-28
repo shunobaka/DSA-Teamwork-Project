@@ -6,6 +6,6 @@
         NotRecommended = 1000,
         Risky = 2000,
         Recommended = 3000,
-        StronglyRemommended = 4000
+        StronglyRecommended = 4000
     }
 }
