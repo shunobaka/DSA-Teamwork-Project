@@ -1,5 +1,6 @@
 ﻿namespace TexasHoldem.AI.Turing.Helpers
 {
+    using System;
     using TexasHoldem.Logic.Cards;
 
     public static class HandStrengthValuation
@@ -36,6 +37,72 @@
                                  : StartingHandRecommendations[MaxCardTypeValue - (int)firstCard.Type, MaxCardTypeValue - (int)secondCard.Type]);
 
             switch (value)
+            {
+                case 0:
+                    return CardValuationType.Unplayable;
+                case 1:
+                    return CardValuationType.NotRecommended;
+                case 2:
+                    return CardValuationType.Risky;
+                case 3:
+                    return CardValuationType.Recommended;
+                case 4:
+                    return CardValuationType.StronglyRemommended;
+                default:
+                    return CardValuationType.Unplayable;
+            }
+        }
+
+        // Feeling lucky punk!
+        public static CardValuationType Flop(Card firstCard, Card secondCard)
+        {
+            var random = new Random();
+
+            switch (random.Next(0, 5))
+            {
+                case 0:
+                    return CardValuationType.Unplayable;
+                case 1:
+                    return CardValuationType.NotRecommended;
+                case 2:
+                    return CardValuationType.Risky;
+                case 3:
+                    return CardValuationType.Recommended;
+                case 4:
+                    return CardValuationType.StronglyRemommended;
+                default:
+                    return CardValuationType.Unplayable;
+            }
+        }
+
+        // Feeling lucky punk!
+        public static CardValuationType Turn(Card firstCard, Card secondCard)
+        {
+            var random = new Random();
+
+            switch (random.Next(0, 5))
+            {
+                case 0:
+                    return CardValuationType.Unplayable;
+                case 1:
+                    return CardValuationType.NotRecommended;
+                case 2:
+                    return CardValuationType.Risky;
+                case 3:
+                    return CardValuationType.Recommended;
+                case 4:
+                    return CardValuationType.StronglyRemommended;
+                default:
+                    return CardValuationType.Unplayable;
+            }
+        }
+
+        // Feeling lucky punk!
+        public static CardValuationType River(Card firstCard, Card secondCard)
+        {
+            var random = new Random();
+
+            switch (random.Next(0, 5))
             {
                 case 0:
                     return CardValuationType.Unplayable;
