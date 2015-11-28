@@ -68,7 +68,7 @@
             if (playHand == CardValuationType.StronglyRemommended)
             {
                 var smallBlindsTimes = RandomProvider.Next(14, 28);
-                return PlayerAction.Raise(context.SmallBlind * smallBlindsTimes);
+                return PlayerAction.Raise(int.MaxValue);
             }
 
             return PlayerAction.CheckOrCall();
