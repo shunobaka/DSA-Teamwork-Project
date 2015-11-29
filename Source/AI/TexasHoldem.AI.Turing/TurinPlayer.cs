@@ -92,7 +92,7 @@
             if (playHand == CardValuationType.Risky)
             {
                 var smallBlindsTimes = RandomProvider.Next(1, 8);
-                return PlayerAction.Raise(context.SmallBlind * smallBlindsTimes);
+                return PlayerAction.CheckOrCall();
             }
 
             if (playHand == CardValuationType.Recommended)
@@ -104,7 +104,7 @@
             if (playHand == CardValuationType.StronglyRecommended)
             {
                 var smallBlindsTimes = RandomProvider.Next(14, 28);
-                return PlayerAction.Raise(context.SmallBlind * smallBlindsTimes);
+                return PlayerAction.Raise(context.SmallBlind * 1000); //smallBlindsTimes); - All-in cuz why not
             }
 
             return PlayerAction.CheckOrCall();

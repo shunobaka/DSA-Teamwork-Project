@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using TexasHoldem.Logic.Cards;
+    using Logic.Helpers;
 
     public static class HandStrengthValuation
     {
@@ -57,8 +58,25 @@
         // Feeling lucky punk!
         public static CardValuationType Flop(Card firstCard, Card secondCard, IEnumerable<Card> comunityCards)
         {
+            var handEvaluator = new HandEvaluator();
+
+            var cards = new List<Card>();
+            cards.AddRange(comunityCards);
+            cards.Add(firstCard);
+            cards.Add(secondCard);
+
+            var playerCards = new List<Card>();
+            playerCards.Add(firstCard);
+            playerCards.Add(secondCard);
+
+            var bestHand = handEvaluator.GetBestHand(cards);
             var outs = new GameOutsValuation();
-            var outsResult = outs.GetOuts(firstCard, secondCard, comunityCards);
+            var outsResult = outs.GetOuts(cards, playerCards, bestHand.RankType);
+
+            if (bestHand.RankType > Logic.HandRankType.FourOfAKind)
+            {
+                return CardValuationType.StronglyRecommended;
+            }
 
             if (outsResult < 3)
             {
