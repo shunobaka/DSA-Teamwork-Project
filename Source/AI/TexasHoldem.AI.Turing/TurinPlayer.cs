@@ -104,7 +104,7 @@
             if (playHand == CardValuationType.StronglyRecommended)
             {
                 var smallBlindsTimes = RandomProvider.Next(14, 28);
-                return PlayerAction.Raise(context.SmallBlind * 1000); //smallBlindsTimes); - All-in cuz why not
+                return PlayerAction.Raise(context.SmallBlind * smallBlindsTimes);
             }
 
             return PlayerAction.CheckOrCall();
@@ -112,7 +112,7 @@
 
         private PlayerAction GetActionForTurn(GetTurnContext context)
         {
-            var playHand = HandStrengthValuation.Turn(this.FirstCard, this.SecondCard);
+            var playHand = HandStrengthValuation.Turn(this.FirstCard, this.SecondCard, this.CommunityCards);
             if (playHand == CardValuationType.Unplayable)
             {
                 if (context.CanCheck)

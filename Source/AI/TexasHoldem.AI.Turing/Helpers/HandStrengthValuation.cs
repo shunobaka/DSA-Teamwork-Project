@@ -55,7 +55,6 @@
             }
         }
 
-        // Feeling lucky punk!
         public static CardValuationType Flop(Card firstCard, Card secondCard, IEnumerable<Card> comunityCards)
         {
             var handEvaluator = new HandEvaluator();
@@ -70,8 +69,43 @@
             playerCards.Add(secondCard);
 
             var bestHand = handEvaluator.GetBestHand(cards);
-            var outs = new GameOutsValuation();
-            var outsResult = outs.GetOuts(cards, playerCards, bestHand.RankType);
+            var outsValuation = new GameOutsValuation();
+            var outsResult = outsValuation.CalculateOuts(cards, playerCards, bestHand.RankType);
+
+            if (outsResult < 3)
+            {
+                return CardValuationType.Unplayable;
+            }
+            else if (outsResult < 7 || bestHand.RankType < Logic.HandRankType.ThreeOfAKind)
+            {
+                return CardValuationType.Risky;
+            }
+            else if (outsResult < 12)
+            {
+                return CardValuationType.Recommended;
+            }
+            else
+            {
+                return CardValuationType.StronglyRecommended;
+            }
+        }
+
+        public static CardValuationType Turn(Card firstCard, Card secondCard, IEnumerable<Card> comunityCards)
+        {
+            var handEvaluator = new HandEvaluator();
+
+            var cards = new List<Card>();
+            cards.AddRange(comunityCards);
+            cards.Add(firstCard);
+            cards.Add(secondCard);
+
+            var playerCards = new List<Card>();
+            playerCards.Add(firstCard);
+            playerCards.Add(secondCard);
+
+            var bestHand = handEvaluator.GetBestHand(cards);
+            var outsValuation = new GameOutsValuation();
+            var outsResult = outsValuation.CalculateOuts(cards, playerCards, bestHand.RankType);
 
             if (bestHand.RankType > Logic.HandRankType.FourOfAKind)
             {
@@ -82,18 +116,18 @@
             {
                 return CardValuationType.Unplayable;
             }
-            else if (outsResult < 7)
+            else if (outsResult < 7 || bestHand.RankType < Logic.HandRankType.ThreeOfAKind)
             {
                 return CardValuationType.Risky;
             }
-
-            return CardValuationType.Recommended;
-        }
-
-        // Feeling lucky punk!
-        public static CardValuationType Turn(Card firstCard, Card secondCard)
-        {
-            return CardValuationType.Risky;
+            else if (outsResult < 12)
+            {
+                return CardValuationType.Recommended;
+            }
+            else
+            {
+                return CardValuationType.StronglyRecommended;
+            }
         }
 
         public static CardValuationType River(Card firstCard, Card secondCard, IEnumerable<Card> comunityCards)
