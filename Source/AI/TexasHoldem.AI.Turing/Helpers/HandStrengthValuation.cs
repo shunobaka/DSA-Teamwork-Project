@@ -49,7 +49,7 @@
                 case 3:
                     return CardValuationType.Recommended;
                 case 4:
-                    return CardValuationType.StronglyRecommended;
+                    return CardValuationType.Recommended;
                 default:
                     return CardValuationType.Unplayable;
             }
@@ -86,14 +86,8 @@
             {
                 return CardValuationType.Risky;
             }
-            else if (outsResult < 12)
-            {
-                return CardValuationType.Recommended;
-            }
-            else
-            {
-                return CardValuationType.StronglyRecommended;
-            }
+
+            return CardValuationType.Recommended;
         }
 
         // Feeling lucky punk!
