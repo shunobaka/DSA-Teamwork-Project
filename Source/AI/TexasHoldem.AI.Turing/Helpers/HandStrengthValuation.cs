@@ -99,45 +99,47 @@
         // Feeling lucky punk!
         public static CardValuationType Turn(Card firstCard, Card secondCard)
         {
-            var random = new Random();
-
-            switch (random.Next(0, 5))
-            {
-                case 0:
-                    return CardValuationType.Unplayable;
-                case 1:
-                    return CardValuationType.NotRecommended;
-                case 2:
-                    return CardValuationType.Risky;
-                case 3:
-                    return CardValuationType.Recommended;
-                case 4:
-                    return CardValuationType.StronglyRecommended;
-                default:
-                    return CardValuationType.Unplayable;
-            }
+            return CardValuationType.Risky;
         }
 
-        // Feeling lucky punk!
-        public static CardValuationType River(Card firstCard, Card secondCard)
+        public static CardValuationType River(Card firstCard, Card secondCard, IEnumerable<Card> comunityCards)
         {
-            var random = new Random();
+            var handEvaluator = new HandEvaluator();
 
-            switch (random.Next(0, 5))
+            var cards = new List<Card>();
+            cards.AddRange(comunityCards);
+            cards.Add(firstCard);
+            cards.Add(secondCard);
+
+            var playerCards = new List<Card>();
+            playerCards.Add(firstCard);
+            playerCards.Add(secondCard);
+
+            var bestHand = handEvaluator.GetBestHand(cards);
+
+            if (bestHand.RankType <= Logic.HandRankType.Pair)
             {
-                case 0:
-                    return CardValuationType.Unplayable;
-                case 1:
-                    return CardValuationType.NotRecommended;
-                case 2:
-                    return CardValuationType.Risky;
-                case 3:
-                    return CardValuationType.Recommended;
-                case 4:
-                    return CardValuationType.StronglyRecommended;
-                default:
-                    return CardValuationType.Unplayable;
+                return CardValuationType.Unplayable;
             }
+
+            if (bestHand.RankType > Logic.HandRankType.Pair &&
+                bestHand.RankType <= Logic.HandRankType.TwoPairs)
+            {
+                return CardValuationType.Risky;
+            }
+
+            if (bestHand.RankType > Logic.HandRankType.TwoPairs &&
+                bestHand.RankType <= Logic.HandRankType.Straight)
+            {
+                return CardValuationType.Recommended;
+            }
+
+            if (bestHand.RankType > Logic.HandRankType.Straight)
+            {
+                return CardValuationType.StronglyRecommended;
+            }
+
+            return CardValuationType.StronglyRecommended;
         }
     }
 }

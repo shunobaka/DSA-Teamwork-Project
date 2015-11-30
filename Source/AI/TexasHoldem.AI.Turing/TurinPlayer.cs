@@ -127,7 +127,7 @@
 
             if (playHand == CardValuationType.Risky)
             {
-                var smallBlindsTimes = RandomProvider.Next(1, 8);
+                var smallBlindsTimes = RandomProvider.Next(1, 4);
                 return PlayerAction.Raise(context.SmallBlind * smallBlindsTimes);
             }
 
@@ -148,7 +148,7 @@
 
         private PlayerAction GetActionForRiver(GetTurnContext context)
         {
-            var playHand = HandStrengthValuation.River(this.FirstCard, this.SecondCard);
+            var playHand = HandStrengthValuation.River(this.FirstCard, this.SecondCard, this.CommunityCards);
             if (playHand == CardValuationType.Unplayable)
             {
                 if (context.CanCheck)
@@ -176,7 +176,7 @@
             if (playHand == CardValuationType.StronglyRecommended)
             {
                 var smallBlindsTimes = RandomProvider.Next(14, 28);
-                return PlayerAction.Raise(context.SmallBlind * smallBlindsTimes);
+                return PlayerAction.Raise(context.SmallBlind * 1000);
             }
 
             return PlayerAction.CheckOrCall();
