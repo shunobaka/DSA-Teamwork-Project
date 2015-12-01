@@ -1,9 +1,8 @@
 ﻿namespace TexasHoldem.AI.Turing.Helpers
 {
-    using System;
+    using Logic.Helpers;
     using System.Collections.Generic;
     using TexasHoldem.Logic.Cards;
-    using Logic.Helpers;
 
     public static class HandStrengthValuation
     {
@@ -72,6 +71,16 @@
             var outsValuation = new GameOutsValuation();
             var outsResult = outsValuation.CalculateOuts(cards, playerCards, bestHand.RankType);
 
+            if (bestHand.RankType > Logic.HandRankType.FullHouse)
+            {
+                return CardValuationType.StronglyRecommended;
+            }
+
+            if (bestHand.RankType >= Logic.HandRankType.Flush)
+            {
+                return CardValuationType.Recommended;
+            }
+
             if (outsResult < 3)
             {
                 return CardValuationType.Unplayable;
@@ -110,6 +119,10 @@
             if (bestHand.RankType > Logic.HandRankType.FourOfAKind)
             {
                 return CardValuationType.StronglyRecommended;
+            }
+            if (bestHand.RankType >= Logic.HandRankType.Straight)
+            {
+                return CardValuationType.Recommended;
             }
 
             if (outsResult < 3)
@@ -157,12 +170,12 @@
             }
 
             if (bestHand.RankType > Logic.HandRankType.TwoPairs &&
-                bestHand.RankType <= Logic.HandRankType.Straight)
+                bestHand.RankType < Logic.HandRankType.Straight)
             {
                 return CardValuationType.Recommended;
             }
 
-            if (bestHand.RankType > Logic.HandRankType.Straight)
+            if (bestHand.RankType >= Logic.HandRankType.Straight)
             {
                 return CardValuationType.StronglyRecommended;
             }

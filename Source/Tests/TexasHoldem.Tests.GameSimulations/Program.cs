@@ -10,14 +10,14 @@
         {
             SimulateGames(new TuringVsASmartPlayer());
             SimulateGames(new TuringVsAlwaysCallPlayer());
-            SimulateGames(new TuringVsDummyPlayer());
+            //SimulateGames(new TuringVsDummyPlayer());
         }
 
         private static void SimulateGames(IGameSimulator gameSimulator)
         {
             Console.WriteLine($"Running {gameSimulator.GetType().Name}...");
 
-            var simulationResult = gameSimulator.Simulate(10000);
+            var simulationResult = gameSimulator.Simulate(1000);
 
             Console.WriteLine(simulationResult.SimulationDuration);
             Console.WriteLine($"Total games: {simulationResult.FirstPlayerWins:0,0} - {simulationResult.SecondPlayerWins:0,0}");
