@@ -60,43 +60,38 @@
 
             var cards = new List<Card>();
             cards.AddRange(comunityCards);
-            cards.Add(firstCard);
-            cards.Add(secondCard);
 
             var playerCards = new List<Card>();
             playerCards.Add(firstCard);
             playerCards.Add(secondCard);
-
-            var bestHand = handEvaluator.GetBestHand(cards);
             var outsValuation = new GameOutsValuation();
-            var outsResult = outsValuation.CalculateOuts(cards, playerCards, bestHand.RankType);
+            var outsResult = outsValuation.CalculateOuts(playerCards, cards);
 
-            if (bestHand.RankType > Logic.HandRankType.FullHouse)
+            cards.Add(firstCard);
+            cards.Add(secondCard);
+            var bestHand = handEvaluator.GetBestHand(cards);
+
+            if (bestHand.RankType >= Logic.HandRankType.FourOfAKind)
             {
-                return CardValuationType.StronglyRecommended;
+                return CardValuationType.PlayItAllIn;
             }
 
-            if (bestHand.RankType >= Logic.HandRankType.Flush)
-            {
-                return CardValuationType.Recommended;
-            }
-
-            if (outsResult < 3)
+            if (outsResult < 25)
             {
                 return CardValuationType.Unplayable;
             }
-            else if (outsResult < 7 || bestHand.RankType < Logic.HandRankType.ThreeOfAKind)
+
+            if (outsResult < 45)
             {
                 return CardValuationType.Risky;
             }
-            else if (outsResult < 12)
+
+            if (outsResult < 85)
             {
                 return CardValuationType.Recommended;
             }
-            else
-            {
-                return CardValuationType.StronglyRecommended;
-            }
+
+            return CardValuationType.StronglyRecommended;
         }
 
         public static CardValuationType Turn(Card firstCard, Card secondCard, IEnumerable<Card> comunityCards)
@@ -105,42 +100,41 @@
 
             var cards = new List<Card>();
             cards.AddRange(comunityCards);
-            cards.Add(firstCard);
-            cards.Add(secondCard);
 
             var playerCards = new List<Card>();
             playerCards.Add(firstCard);
             playerCards.Add(secondCard);
 
-            var bestHand = handEvaluator.GetBestHand(cards);
+            //var bestHand = handEvaluator.GetBestHand(cards);
             var outsValuation = new GameOutsValuation();
-            var outsResult = outsValuation.CalculateOuts(cards, playerCards, bestHand.RankType);
+            var outsResult = outsValuation.CalculateOuts(playerCards, cards);
 
-            if (bestHand.RankType > Logic.HandRankType.FourOfAKind)
+            cards.Add(firstCard);
+            cards.Add(secondCard);
+
+            var bestHand = handEvaluator.GetBestHand(cards);
+
+            if (bestHand.RankType >= Logic.HandRankType.Flush)
             {
-                return CardValuationType.StronglyRecommended;
-            }
-            if (bestHand.RankType >= Logic.HandRankType.Straight)
-            {
-                return CardValuationType.Recommended;
+                return CardValuationType.PlayItAllIn;
             }
 
-            if (outsResult < 3)
+            if (outsResult < 25)
             {
                 return CardValuationType.Unplayable;
             }
-            else if (outsResult < 7 || bestHand.RankType < Logic.HandRankType.ThreeOfAKind)
+
+            if (outsResult < 45)
             {
                 return CardValuationType.Risky;
             }
-            else if (outsResult < 12)
+
+            if (outsResult < 85)
             {
                 return CardValuationType.Recommended;
             }
-            else
-            {
-                return CardValuationType.StronglyRecommended;
-            }
+
+            return CardValuationType.StronglyRecommended;
         }
 
         public static CardValuationType River(Card firstCard, Card secondCard, IEnumerable<Card> comunityCards)
@@ -163,7 +157,7 @@
                 return CardValuationType.Unplayable;
             }
 
-            if (bestHand.RankType > Logic.HandRankType.Pair &&
+            if (
                 bestHand.RankType <= Logic.HandRankType.TwoPairs)
             {
                 return CardValuationType.Risky;

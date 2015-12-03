@@ -18,7 +18,10 @@
 
         public override PlayerAction GetTurn(GetTurnContext context)
         {
-
+            if (context.IsAllIn)
+            {
+                return PlayerAction.CheckOrCall();
+            }
             if (context.RoundType == GameRoundType.PreFlop)
             {
                 return this.GetActionForPreFlop(context);
@@ -44,6 +47,10 @@
             var playHand = HandStrengthValuation.PreFlop(this.FirstCard, this.SecondCard);
             if (playHand == CardValuationType.Unplayable)
             {
+                if (context.CanCheck)
+                {
+                    return PlayerAction.CheckOrCall();
+                }
                 return PlayerAction.Fold();
             }
 
@@ -62,7 +69,7 @@
             if (playHand == CardValuationType.StronglyRecommended)
             {
                 var smallBlindsTimes = RandomProvider.Next(5, 8);
-                return PlayerAction.Raise(context.SmallBlind * 50);
+                return PlayerAction.Raise(context.SmallBlind * 10);
             }
 
             return PlayerAction.CheckOrCall();
@@ -71,8 +78,14 @@
         private PlayerAction GetActionForFlop(GetTurnContext context)
         {
             var playHand = HandStrengthValuation.Flop(this.FirstCard, this.SecondCard, this.CommunityCards);
+            if (playHand == CardValuationType.PlayItAllIn)
+            {
+                return PlayerAction.Raise(10000000);
+            }
+
             if (playHand == CardValuationType.Unplayable)
             {
+
                 if (context.CanCheck)
                 {
                     return PlayerAction.CheckOrCall();
@@ -110,7 +123,7 @@
             if (playHand == CardValuationType.StronglyRecommended)
             {
                 var smallBlindsTimes = RandomProvider.Next(14, 28);
-                return PlayerAction.Raise(context.SmallBlind * 1000);
+                return PlayerAction.Raise(context.SmallBlind * 30);
             }
 
             return PlayerAction.CheckOrCall();
@@ -119,6 +132,11 @@
         private PlayerAction GetActionForTurn(GetTurnContext context)
         {
             var playHand = HandStrengthValuation.Turn(this.FirstCard, this.SecondCard, this.CommunityCards);
+            if (playHand == CardValuationType.PlayItAllIn)
+            {
+                return PlayerAction.Raise(10000000);
+            }
+
             if (playHand == CardValuationType.Unplayable)
             {
                 if (context.CanCheck)
@@ -140,13 +158,13 @@
             if (playHand == CardValuationType.Recommended)
             {
                 var smallBlindsTimes = RandomProvider.Next(6, 14);
-                return PlayerAction.Raise(context.SmallBlind * 100);
+                return PlayerAction.Raise(context.SmallBlind * 20);
             }
 
             if (playHand == CardValuationType.StronglyRecommended)
             {
                 var smallBlindsTimes = RandomProvider.Next(14, 28);
-                return PlayerAction.Raise(context.SmallBlind * 1000);
+                return PlayerAction.Raise(context.SmallBlind * 30);
             }
 
             return PlayerAction.CheckOrCall();
@@ -169,15 +187,17 @@
 
             if (playHand == CardValuationType.Risky)
             {
-                var smallBlindsTimes = RandomProvider.Next(1, 8);
-                return PlayerAction.Raise(context.SmallBlind * smallBlindsTimes);
+                if (context.CanCheck)
+                {
+                    return PlayerAction.CheckOrCall();
+                }
             }
 
             if (playHand == CardValuationType.Recommended)
             {
                 var smallBlindsTimes = RandomProvider.Next(6, 14);
 
-                return PlayerAction.Raise(context.SmallBlind * 1000);
+                return PlayerAction.Raise(context.SmallBlind * 20);
             }
 
             if (playHand == CardValuationType.StronglyRecommended)
