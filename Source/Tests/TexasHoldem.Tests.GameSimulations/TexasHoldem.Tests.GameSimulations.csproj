@@ -68,6 +68,8 @@
     <Compile Include="GameSimulators\SmartVsAlwaysCallPlayerSimulation.cs" />
     <Compile Include="GameSimulators\SmartVsDummyPlayerSimulator.cs" />
     <Compile Include="GameSimulators\SmartVsSmartPlayerSimulator.cs" />
+    <Compile Include="GameSimulators\TuringVsAlwaysAllInPlayer.cs" />
+    <Compile Include="GameSimulators\TuringVsAlwaysRaisePlayer.cs" />
     <Compile Include="GameSimulators\TuringVsAlwaysCallPlayer.cs" />
     <Compile Include="GameSimulators\TuringVsASmartPlayer.cs" />
     <Compile Include="GameSimulators\TuringVsDummyPlayer.cs" />

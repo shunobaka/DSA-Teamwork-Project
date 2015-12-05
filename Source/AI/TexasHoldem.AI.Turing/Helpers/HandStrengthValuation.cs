@@ -76,6 +76,11 @@
                 return CardValuationType.PlayItAllIn;
             }
 
+            if (bestHand.RankType >= Logic.HandRankType.ThreeOfAKind)
+            {
+                return CardValuationType.Recommended;
+            }
+
             if (outsResult < 25)
             {
                 return CardValuationType.Unplayable;
@@ -114,7 +119,7 @@
 
             var bestHand = handEvaluator.GetBestHand(cards);
 
-            if (bestHand.RankType >= Logic.HandRankType.Flush)
+            if (bestHand.RankType >= Logic.HandRankType.FourOfAKind)
             {
                 return CardValuationType.PlayItAllIn;
             }
@@ -164,12 +169,12 @@
             }
 
             if (bestHand.RankType > Logic.HandRankType.TwoPairs &&
-                bestHand.RankType < Logic.HandRankType.Straight)
+                bestHand.RankType <= Logic.HandRankType.Straight)
             {
                 return CardValuationType.Recommended;
             }
 
-            if (bestHand.RankType >= Logic.HandRankType.Straight)
+            if (bestHand.RankType > Logic.HandRankType.Flush)
             {
                 return CardValuationType.StronglyRecommended;
             }

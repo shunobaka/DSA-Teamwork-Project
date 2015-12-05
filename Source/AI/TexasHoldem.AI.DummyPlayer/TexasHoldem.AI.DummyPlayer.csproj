@@ -41,6 +41,8 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlwaysAllInDummyPlayer.cs" />
+    <Compile Include="AlwaysRaiseDummyPlayer.cs" />
     <Compile Include="AlwaysCallDummyPlayer.cs" />
     <Compile Include="AlwaysFoldDummyPlayer.cs" />
     <Compile Include="DummyPlayer.cs" />

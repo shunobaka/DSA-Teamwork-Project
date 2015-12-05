@@ -18,7 +18,7 @@
 
         public override PlayerAction GetTurn(GetTurnContext context)
         {
-            if (context.IsAllIn)
+            if (context.MoneyLeft <= 0)
             {
                 return PlayerAction.CheckOrCall();
             }
@@ -57,19 +57,56 @@
             if (playHand == CardValuationType.Risky)
             {
                 var smallBlindsTimes = RandomProvider.Next(1, 2);
+
+                if (context.CanCheck)
+                {
+                    return PlayerAction.CheckOrCall();
+                }
+                if (context.IsAllIn)
+                {
+                    return PlayerAction.Fold();
+                }
+
+                if (context.CurrentPot > context.MoneyLeft)
+                {
+                    return PlayerAction.Fold();
+                }
+
+                if (context.MoneyLeft <= context.SmallBlind * 5)
+                {
+                    return PlayerAction.Fold();
+                }
+
+
                 return PlayerAction.CheckOrCall();
             }
 
             if (playHand == CardValuationType.Recommended)
             {
+                if (context.CanCheck)
+                {
+                    return PlayerAction.CheckOrCall();
+                }
+
+                if (context.MoneyLeft < context.SmallBlind * 10)
+                {
+                    return PlayerAction.Raise(10000);
+                }
+
                 var smallBlindsTimes = RandomProvider.Next(3, 5);
-                return PlayerAction.CheckOrCall();
+
+                if (context.MoneyToCall <= context.MoneyLeft / 5)
+                {
+                    return PlayerAction.CheckOrCall();
+                }
+
+                return PlayerAction.Fold();
             }
 
             if (playHand == CardValuationType.StronglyRecommended)
             {
                 var smallBlindsTimes = RandomProvider.Next(5, 8);
-                return PlayerAction.Raise(context.SmallBlind * 10);
+                return PlayerAction.Raise(context.SmallBlind * 5);
             }
 
             return PlayerAction.CheckOrCall();
@@ -99,7 +136,12 @@
             if (playHand == CardValuationType.Risky)
             {
                 var smallBlindsTimes = RandomProvider.Next(1, 8);
-                return PlayerAction.CheckOrCall();
+                if (context.CanCheck)
+                {
+                    return PlayerAction.CheckOrCall();
+                }
+
+                return PlayerAction.Fold();
             }
 
             if (playHand == CardValuationType.Recommended)
@@ -107,7 +149,11 @@
                 var smallBlindsTimes = RandomProvider.Next(6, 14);
                 if (context.CanCheck)
                 {
-                    return PlayerAction.CheckOrCall();
+                    if (context.MoneyToCall <= context.MoneyLeft / 10)
+                    {
+                        return PlayerAction.CheckOrCall();
+                    }
+                    return PlayerAction.Fold();
                 }
 
                 // this one is not working but it is an idea :)
@@ -152,12 +198,23 @@
             if (playHand == CardValuationType.Risky)
             {
                 var smallBlindsTimes = RandomProvider.Next(1, 4);
-                return PlayerAction.CheckOrCall();
+                if (context.CanCheck)
+                {
+                    return PlayerAction.CheckOrCall();
+                }
+                if (context.MoneyToCall <= context.MoneyLeft / 20)
+                {
+                    return PlayerAction.CheckOrCall();
+                }
+
+
+                return PlayerAction.Fold();
             }
 
             if (playHand == CardValuationType.Recommended)
             {
                 var smallBlindsTimes = RandomProvider.Next(6, 14);
+
                 return PlayerAction.Raise(context.SmallBlind * 20);
             }
 
@@ -191,6 +248,14 @@
                 {
                     return PlayerAction.CheckOrCall();
                 }
+
+                if (context.MoneyToCall <= context.MoneyLeft / 20)
+                {
+                    return PlayerAction.CheckOrCall();
+                }
+
+
+                return PlayerAction.Fold();
             }
 
             if (playHand == CardValuationType.Recommended)
