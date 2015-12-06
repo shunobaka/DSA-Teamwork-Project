@@ -62,17 +62,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameSimulators\AlwaysCallPlayersGameSimulation.cs" />
+    <Compile Include="GameSimulators\AlwaysRiseVsExtended.cs" />
     <Compile Include="GameSimulators\BaseGameSimulator.cs" />
     <Compile Include="GameSimulators\GameSimulationResult.cs" />
     <Compile Include="GameSimulators\IGameSimulator.cs" />
     <Compile Include="GameSimulators\SmartVsAlwaysCallPlayerSimulation.cs" />
     <Compile Include="GameSimulators\SmartVsDummyPlayerSimulator.cs" />
+    <Compile Include="GameSimulators\AlwaysInVsExtended.cs" />
+    <Compile Include="GameSimulators\SmartVsExtended.cs" />
     <Compile Include="GameSimulators\SmartVsSmartPlayerSimulator.cs" />
     <Compile Include="GameSimulators\TuringVsAlwaysAllInPlayer.cs" />
     <Compile Include="GameSimulators\TuringVsAlwaysRaisePlayer.cs" />
     <Compile Include="GameSimulators\TuringVsAlwaysCallPlayer.cs" />
     <Compile Include="GameSimulators\TuringVsASmartPlayer.cs" />
     <Compile Include="GameSimulators\TuringVsDummyPlayer.cs" />
+    <Compile Include="GameSimulators\TuringVsExtended.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -88,6 +92,10 @@
     <ProjectReference Include="..\..\AI\TexasHoldem.AI.SmartPlayer\TexasHoldem.AI.SmartPlayer.csproj">
       <Project>{E7BA8017-D56E-485C-81D1-A1CCDAAE624F}</Project>
       <Name>TexasHoldem.AI.SmartPlayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AI\TexasHoldem.AI.TuringExtended\TexasHoldem.AI.TuringExtended.csproj">
+      <Project>{6a02bdb9-7c27-4688-b765-a7e628b0a3dc}</Project>
+      <Name>TexasHoldem.AI.TuringExtended</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\AI\TexasHoldem.AI.Turing\TexasHoldem.AI.Turing.csproj">
       <Project>{5ebffaaf-9a32-4c58-a051-0b91df6c679c}</Project>

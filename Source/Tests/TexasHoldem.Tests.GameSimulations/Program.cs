@@ -8,10 +8,10 @@
     {
         public static void Main()
         {
-            SimulateGames(new TuringVsASmartPlayer());
-            SimulateGames(new TuringVsAlwaysCallPlayer());
-            SimulateGames(new TuringVsAlwaysRaisePlayer());
-            SimulateGames(new TuringVsAlwaysAllInPlayer());
+            SimulateGames(new TuringVsExtended());
+            SimulateGames(new SmartVsExtended());
+            SimulateGames(new AlwaysInVsExtended());
+            SimulateGames(new AlwaysRiseVsExtended());
             //SimulateGames(new TuringVsDummyPlayer());
         }
 
@@ -19,7 +19,7 @@
         {
             Console.WriteLine($"Running {gameSimulator.GetType().Name}...");
 
-            var simulationResult = gameSimulator.Simulate(1000);
+            var simulationResult = gameSimulator.Simulate(100);
 
             Console.WriteLine(simulationResult.SimulationDuration);
             Console.WriteLine($"Total games: {simulationResult.FirstPlayerWins:0,0} - {simulationResult.SecondPlayerWins:0,0}");

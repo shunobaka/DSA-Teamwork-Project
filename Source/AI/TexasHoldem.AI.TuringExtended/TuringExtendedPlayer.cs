@@ -1,21 +1,20 @@
-﻿using System;
-using System.Linq;
-
-namespace TexasHoldem.AI.Turing
+﻿namespace TexasHoldem.AI.TuringExtended
 {
-    using TexasHoldem.AI.Turing.Helpers;
+    using System;
+    using System.Linq;
+    using TexasHoldem.AI.TuringExtended.Helpers;
     using TexasHoldem.Logic;
     using TexasHoldem.Logic.Extensions;
     using TexasHoldem.Logic.Players;
 
     // TODO: This player is far far away from being smart!
-    public class TurinPlayer : BasePlayer
+    public class TuringExtendedPlayer : BasePlayer
     {
         private int counter = 0;
         public override string Name
         {
             get;
-        } = "TuringPlayer_" + Guid.NewGuid();
+        } = "TuringExtendedPlayer_" + Guid.NewGuid();
 
         public override PlayerAction GetTurn(GetTurnContext context)
         {
@@ -77,7 +76,6 @@ namespace TexasHoldem.AI.Turing
                 {
                     return PlayerAction.Fold();
                 }
-
 
                 return PlayerAction.CheckOrCall();
             }
@@ -207,7 +205,6 @@ namespace TexasHoldem.AI.Turing
                 {
                     return PlayerAction.CheckOrCall();
                 }
-
 
                 return PlayerAction.Fold();
             }
