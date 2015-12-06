@@ -11,10 +11,12 @@
     public class TuringExtendedPlayer : BasePlayer
     {
         private int counter = 0;
-        public override string Name
-        {
-            get;
-        } = "TuringExtendedPlayer_" + Guid.NewGuid();
+        private int raisesOnPreFlop = 0;
+        private int raisesOnFlop = 0;
+        private int raisesOnTurn = 0;
+        private int raisesOnRiver = 0;
+
+        public override string Name { get; } = "TuringExtendedPlayer_" + Guid.NewGuid();
 
         public override PlayerAction GetTurn(GetTurnContext context)
         {
@@ -51,6 +53,7 @@
                 {
                     return PlayerAction.CheckOrCall();
                 }
+
                 return PlayerAction.Fold();
             }
 
@@ -62,6 +65,7 @@
                 {
                     return PlayerAction.CheckOrCall();
                 }
+
                 if (context.IsAllIn)
                 {
                     return PlayerAction.Fold();
@@ -89,10 +93,12 @@
 
                 if (context.MoneyLeft < context.SmallBlind * 10)
                 {
-                    return PlayerAction.Raise(10000);
+                    if (this.raisesOnPreFlop < 1)
+                    {
+                        this.raisesOnPreFlop += 1;
+                        return PlayerAction.Raise(context.SmallBlind * 2);
+                    }
                 }
-
-                var smallBlindsTimes = RandomProvider.Next(3, 5);
 
                 if (context.MoneyToCall <= context.MoneyLeft / 5)
                 {
@@ -104,8 +110,11 @@
 
             if (playHand == CardValuationType.StronglyRecommended)
             {
-                var smallBlindsTimes = RandomProvider.Next(5, 8);
-                return PlayerAction.Raise(context.SmallBlind * 5);
+                if (this.raisesOnPreFlop < 1)
+                {
+                    this.raisesOnPreFlop += 1;
+                    return PlayerAction.Raise(context.SmallBlind * 2);
+                }
             }
 
             return PlayerAction.CheckOrCall();
@@ -114,10 +123,6 @@
         private PlayerAction GetActionForFlop(GetTurnContext context)
         {
             var playHand = HandStrengthValuation.Flop(this.FirstCard, this.SecondCard, this.CommunityCards);
-            if (playHand == CardValuationType.PlayItAllIn)
-            {
-                return PlayerAction.Raise(10000000);
-            }
 
             if (playHand == CardValuationType.Unplayable)
             {
@@ -134,7 +139,6 @@
 
             if (playHand == CardValuationType.Risky)
             {
-                var smallBlindsTimes = RandomProvider.Next(1, 8);
                 if (context.CanCheck)
                 {
                     return PlayerAction.CheckOrCall();
@@ -145,30 +149,33 @@
 
             if (playHand == CardValuationType.Recommended)
             {
-                var smallBlindsTimes = RandomProvider.Next(6, 14);
+                var smallBlindsTimes = RandomProvider.Next(1, 14);
                 if (context.CanCheck)
                 {
                     if (context.MoneyToCall <= context.MoneyLeft / 10)
                     {
                         return PlayerAction.CheckOrCall();
                     }
+
                     return PlayerAction.Fold();
                 }
 
-                // this one is not working but it is an idea :)
-                if (context.PreviousRoundActions.ToArray()
-                        .Any(s => s.Action.Type == PlayerActionType.Raise && s.PlayerName != this.Name))
+                if (this.raisesOnFlop < 2)
                 {
-                    return PlayerAction.Raise(100000);
+                    this.raisesOnPreFlop += 1;
+                    return PlayerAction.Raise(context.SmallBlind * smallBlindsTimes);
                 }
 
-                return PlayerAction.Raise(context.SmallBlind * smallBlindsTimes);
+                return PlayerAction.CheckOrCall();
             }
 
             if (playHand == CardValuationType.StronglyRecommended)
             {
-                var smallBlindsTimes = RandomProvider.Next(14, 28);
-                return PlayerAction.Raise(context.SmallBlind * 30);
+                if (this.raisesOnFlop < 1)
+                {
+                    this.raisesOnPreFlop += 1;
+                    return PlayerAction.Raise(context.SmallBlind * 4);
+                }
             }
 
             return PlayerAction.CheckOrCall();
@@ -177,10 +184,6 @@
         private PlayerAction GetActionForTurn(GetTurnContext context)
         {
             var playHand = HandStrengthValuation.Turn(this.FirstCard, this.SecondCard, this.CommunityCards);
-            if (playHand == CardValuationType.PlayItAllIn)
-            {
-                return PlayerAction.Raise(10000000);
-            }
 
             if (playHand == CardValuationType.Unplayable)
             {
@@ -201,6 +204,7 @@
                 {
                     return PlayerAction.CheckOrCall();
                 }
+
                 if (context.MoneyToCall <= context.MoneyLeft / 20)
                 {
                     return PlayerAction.CheckOrCall();
@@ -211,15 +215,24 @@
 
             if (playHand == CardValuationType.Recommended)
             {
-                var smallBlindsTimes = RandomProvider.Next(6, 14);
-
-                return PlayerAction.Raise(context.SmallBlind * 20);
+                if (this.raisesOnTurn < 2)
+                {
+                    this.raisesOnTurn += 1;
+                    return PlayerAction.Raise(context.SmallBlind * 4);
+                }
             }
 
             if (playHand == CardValuationType.StronglyRecommended)
             {
-                var smallBlindsTimes = RandomProvider.Next(14, 28);
-                return PlayerAction.Raise(context.SmallBlind * 30);
+                if (this.raisesOnTurn < 2)
+                {
+                    this.raisesOnTurn += 1;
+                    var smallBlindsTimes = RandomProvider.Next(8, 18);
+
+                    return PlayerAction.Raise(context.SmallBlind * smallBlindsTimes);
+                }
+
+                return PlayerAction.Raise(context.SmallBlind * 2);
             }
 
             return PlayerAction.CheckOrCall();
@@ -252,7 +265,6 @@
                     return PlayerAction.CheckOrCall();
                 }
 
-
                 return PlayerAction.Fold();
             }
 
@@ -260,13 +272,22 @@
             {
                 var smallBlindsTimes = RandomProvider.Next(6, 14);
 
-                return PlayerAction.Raise(context.SmallBlind * 20);
+                if (this.raisesOnRiver < 3)
+                {
+                    this.raisesOnRiver += 1;
+                    return PlayerAction.Raise(context.SmallBlind * smallBlindsTimes);
+                }
             }
 
             if (playHand == CardValuationType.StronglyRecommended)
             {
-                var smallBlindsTimes = RandomProvider.Next(14, 28);
-                return PlayerAction.Raise(context.SmallBlind * 1000);
+                if (this.raisesOnRiver >= 1)
+                {
+                    this.raisesOnRiver++;
+                    return PlayerAction.Raise(500);
+                }
+
+                return PlayerAction.CheckOrCall();
             }
 
             return PlayerAction.CheckOrCall();
