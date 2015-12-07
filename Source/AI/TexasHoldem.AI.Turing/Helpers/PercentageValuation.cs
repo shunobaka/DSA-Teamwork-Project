@@ -11,11 +11,11 @@ namespace TexasHoldem.AI.Turing.Helpers
     public class PercentageValuation
     {
         /// <summary>
-        ///     Calculates percesentage for game 
+        ///     Calculates percesentage for the currant hand in the game;
         /// </summary>
-        /// <param name="playerCards"></param>
-        /// <param name="cards"></param>
-        /// <returns></returns>
+        /// <param name="playerCards">The Turing player cards</param>
+        /// <param name="cards">Community cards</param>
+        /// <returns>Percentage for game development in Turing's favour</returns>
         public double CalculatePercentage(IEnumerable<Card> playerCards, IEnumerable<Card> cards)
         {
             var deck = new List<Card>();
