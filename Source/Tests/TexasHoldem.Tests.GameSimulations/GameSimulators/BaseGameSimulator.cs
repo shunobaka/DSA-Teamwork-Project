@@ -23,11 +23,6 @@
             //// TODO: Parallel.For(1, numberOfGames + 1, i =>
             for (var i = 1; i < numberOfGames + 1; i++)
             {
-                if (i % 5 == 0)
-                {
-                    Console.Write(".");
-                }
-
                 ITexasHoldemGame game = i % 2 == 1
                                             ? new TwoPlayersTexasHoldemGame(firstPlayer, secondPlayer)
                                             : new TwoPlayersTexasHoldemGame(secondPlayer, firstPlayer);
@@ -47,17 +42,22 @@
 
                     handsPlayed += game.HandsPlayed;
                 }
+
+                if (i % 10 == 0)
+                {
+                    Console.WriteLine("{" + i + "} => [" + firstPlayerWins + " - " + secondPlayerWins + "]");
+                }
             }
 
             var simulationDuration = stopwatch.Elapsed;
 
             return new GameSimulationResult
-                       {
-                           FirstPlayerWins = firstPlayerWins,
-                           SecondPlayerWins = secondPlayerWins,
-                           HandsPlayed = handsPlayed,
-                           SimulationDuration = simulationDuration
-                       };
+            {
+                FirstPlayerWins = firstPlayerWins,
+                SecondPlayerWins = secondPlayerWins,
+                HandsPlayed = handsPlayed,
+                SimulationDuration = simulationDuration
+            };
         }
 
         protected abstract IPlayer GetFirstPlayer();
