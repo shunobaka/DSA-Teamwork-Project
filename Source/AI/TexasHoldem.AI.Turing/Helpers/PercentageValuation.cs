@@ -4,9 +4,9 @@
     using Logic.Cards;
     using Logic.Helpers;
 
-    public class GameOutsValuation
+    public class PercentageValuation
     {
-        public double CalculateOuts(IEnumerable<Card> playerCards, IEnumerable<Card> cards)
+        public double CalculatePercentage(IEnumerable<Card> playerCards, IEnumerable<Card> cards)
         {
             var deck = new List<Card>();
 

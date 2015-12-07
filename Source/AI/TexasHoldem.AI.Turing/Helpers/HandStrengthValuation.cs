@@ -1,8 +1,13 @@
-﻿namespace TexasHoldem.AI.Turing.Helpers
+﻿// <copyright file="HandStrengthValuation.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TexasHoldem.AI.Turing.Helpers
 {
     using System.Collections.Generic;
-    using Logic.Helpers;
+
     using Logic.Cards;
+    using Logic.Helpers;
 
     public static class HandStrengthValuation
     {
@@ -62,8 +67,8 @@
             var playerCards = new List<Card>();
             playerCards.Add(firstCard);
             playerCards.Add(secondCard);
-            var outsValuation = new GameOutsValuation();
-            var outsResult = outsValuation.CalculateOuts(playerCards, cards);
+            var percentageValuation = new PercentageValuation();
+            var percentage = percentageValuation.CalculatePercentage(playerCards, cards);
 
             cards.Add(firstCard);
             cards.Add(secondCard);
@@ -79,17 +84,17 @@
                 return CardValuationType.Recommended;
             }
 
-            if (outsResult < 25)
+            if (percentage < 25)
             {
                 return CardValuationType.Unplayable;
             }
 
-            if (outsResult < 45)
+            if (percentage < 45)
             {
                 return CardValuationType.Risky;
             }
 
-            if (outsResult < 85)
+            if (percentage < 85)
             {
                 return CardValuationType.Recommended;
             }
@@ -108,8 +113,8 @@
             playerCards.Add(firstCard);
             playerCards.Add(secondCard);
 
-            var outsValuation = new GameOutsValuation();
-            var outsResult = outsValuation.CalculateOuts(playerCards, cards);
+            var percentageValuation = new PercentageValuation();
+            var percentage = percentageValuation.CalculatePercentage(playerCards, cards);
 
             cards.Add(firstCard);
             cards.Add(secondCard);
@@ -121,17 +126,17 @@
                 return CardValuationType.PlayItAllIn;
             }
 
-            if (outsResult < 25)
+            if (percentage < 25)
             {
                 return CardValuationType.Unplayable;
             }
 
-            if (outsResult < 45)
+            if (percentage < 45)
             {
                 return CardValuationType.Risky;
             }
 
-            if (outsResult < 85)
+            if (percentage < 85)
             {
                 return CardValuationType.Recommended;
             }
