@@ -45,7 +45,7 @@
     <Compile Include="Helpers\HandStrengthValuation.cs" />
     <Compile Include="Helpers\PercentageValuation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TurinPlayer.cs" />
+    <Compile Include="TuringPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\TexasHoldem.Logic\TexasHoldem.Logic.csproj">

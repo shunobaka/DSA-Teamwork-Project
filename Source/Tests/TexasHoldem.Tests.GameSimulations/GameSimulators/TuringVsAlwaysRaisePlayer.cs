@@ -6,7 +6,7 @@
 
     public class TuringVsAlwaysRaisePlayer : BaseGameSimulator
     {
-        private readonly IPlayer firstPlayer = new TurinPlayer();
+        private readonly IPlayer firstPlayer = new TuringPlayer();
         private readonly IPlayer secondPlayer = new AlwaysRaiseDummyPlayer();
 
         protected override IPlayer GetFirstPlayer()

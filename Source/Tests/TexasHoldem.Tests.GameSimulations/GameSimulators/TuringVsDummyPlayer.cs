@@ -9,7 +9,7 @@
     /// </summary>
     public class TuringVsDummyPlayer : BaseGameSimulator
     {
-        private readonly IPlayer firstPlayer = new TurinPlayer();
+        private readonly IPlayer firstPlayer = new TuringPlayer();
         private readonly IPlayer secondPlayer = new DummyPlayer();
 
         protected override IPlayer GetFirstPlayer()

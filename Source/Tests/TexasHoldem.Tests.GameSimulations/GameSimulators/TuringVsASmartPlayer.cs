@@ -9,7 +9,7 @@
     /// </summary>
     public class TuringVsASmartPlayer : BaseGameSimulator
     {
-        private readonly IPlayer firstPlayer = new TurinPlayer();
+        private readonly IPlayer firstPlayer = new TuringPlayer();
         private readonly IPlayer secondPlayer = new SmartPlayer();
 
         protected override IPlayer GetFirstPlayer()

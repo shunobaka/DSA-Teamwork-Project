@@ -1,4 +1,8 @@
-﻿namespace TexasHoldem.AI.Turing.Helpers
+﻿// <copyright file="PercentageValuation.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TexasHoldem.AI.Turing.Helpers
 {
     using System.Collections.Generic;
     using Logic.Cards;
@@ -6,6 +10,12 @@
 
     public class PercentageValuation
     {
+        /// <summary>
+        ///     Calculates percesentage for game 
+        /// </summary>
+        /// <param name="playerCards"></param>
+        /// <param name="cards"></param>
+        /// <returns></returns>
         public double CalculatePercentage(IEnumerable<Card> playerCards, IEnumerable<Card> cards)
         {
             var deck = new List<Card>();

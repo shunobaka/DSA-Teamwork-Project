@@ -1,4 +1,4 @@
-﻿// <copyright file="TurinPlayer.cs" company="PlaceholderCompany">
+﻿// <copyright file="TuringPlayer.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
@@ -15,7 +15,7 @@ namespace TexasHoldem.AI.Turing
     /// <summary>
     ///  Turing Player inherits Base player
     /// </summary>
-    public class TurinPlayer : BasePlayer
+    public class TuringPlayer : BasePlayer
     {
         public override string Name { get; } = "TuringPlayer_" + Guid.NewGuid();
 
