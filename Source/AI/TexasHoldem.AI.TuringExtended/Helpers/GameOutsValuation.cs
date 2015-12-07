@@ -65,7 +65,7 @@
             if (playerBestHand.RankType <= bestHandFromBoard.RankType &&
                 (cards.ToList().Count() == 3))
             {
-                return 42;
+                return 21;
             }
 
             if (cards.Count() == 4 && cards.Any())
@@ -73,7 +73,7 @@
                 var bestHandFromBoardOnTurn = handEvaluatorExtended.GetBestHandForTurn(board);
                 if (playerBestHand.RankType <= bestHandFromBoardOnTurn.RankType)
                 {
-                    return 42;
+                    return 21;
                 }
             }
 
