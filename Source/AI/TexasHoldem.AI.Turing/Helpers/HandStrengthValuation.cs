@@ -9,6 +9,9 @@ namespace TexasHoldem.AI.Turing.Helpers
     using Logic.Cards;
     using Logic.Helpers;
 
+    /// <summary>
+    ///     Calculates current hand strenght
+    /// </summary>
     public static class HandStrengthValuation
     {
         private const int MaxCardTypeValue = 14;
@@ -30,6 +33,12 @@ namespace TexasHoldem.AI.Turing.Helpers
                 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 }
             };
 
+        /// <summary>
+        ///     Claculates current CardValuation type based on players cards
+        /// </summary>
+        /// <param name="firstCard">first cards</param>
+        /// <param name="secondCard">second card</param>
+        /// <returns>the Card Valuation Type</returns>
         public static CardValuationType PreFlop(Card firstCard, Card secondCard)
         {
             var value = firstCard.Suit == secondCard.Suit
@@ -57,6 +66,13 @@ namespace TexasHoldem.AI.Turing.Helpers
             }
         }
 
+        /// <summary>
+        ///     Claculates current CardValuation type based on players cards and community cards
+        /// </summary>
+        /// <param name="firstCard">first cards</param>
+        /// <param name="secondCard">second card</param>
+        /// <param name="comunityCards">Comunity cards</param>
+        /// <returns>the Card Valuation Type</returns>
         public static CardValuationType Flop(Card firstCard, Card secondCard, IEnumerable<Card> comunityCards)
         {
             var handEvaluator = new HandEvaluator();
@@ -102,6 +118,13 @@ namespace TexasHoldem.AI.Turing.Helpers
             return CardValuationType.StronglyRecommended;
         }
 
+        /// <summary>
+        ///     Claculates current CardValuation type based on players cards and community cards
+        /// </summary>
+        /// <param name="firstCard">first cards</param>
+        /// <param name="secondCard">second card</param>
+        /// <param name="comunityCards">Comunity cards</param>
+        /// <returns>the Card Valuation Type</returns>
         public static CardValuationType Turn(Card firstCard, Card secondCard, IEnumerable<Card> comunityCards)
         {
             var handEvaluator = new HandEvaluator();
@@ -143,6 +166,13 @@ namespace TexasHoldem.AI.Turing.Helpers
             return CardValuationType.StronglyRecommended;
         }
 
+        /// <summary>
+        ///     Claculates current CardValuation type based on players cards and community cards
+        /// </summary>
+        /// <param name="firstCard">first cards</param>
+        /// <param name="secondCard">second card</param>
+        /// <param name="comunityCards">Comunity cards</param>
+        /// <returns>the Card Valuation Type</returns>
         public static CardValuationType River(Card firstCard, Card secondCard, IEnumerable<Card> comunityCards)
         {
             var handEvaluator = new HandEvaluator();
