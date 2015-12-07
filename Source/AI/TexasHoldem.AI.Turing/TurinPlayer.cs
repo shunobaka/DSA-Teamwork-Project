@@ -1,4 +1,8 @@
-﻿namespace TexasHoldem.AI.Turing
+﻿// <copyright file="TurinPlayer.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TexasHoldem.AI.Turing
 {
     using System;
     using System.Linq;
@@ -8,10 +12,18 @@
     using Logic.Extensions;
     using Logic.Players;
 
+    /// <summary>
+    ///  Turing Player inherits Base player
+    /// </summary>
     public class TurinPlayer : BasePlayer
     {
         public override string Name { get; } = "TuringPlayer_" + Guid.NewGuid();
 
+        /// <summary>
+        ///     Returns Player actions based on the context
+        /// </summary>
+        /// <param name="context">Information for the game</param>
+        /// <returns>The player action</returns>
         public override PlayerAction GetTurn(GetTurnContext context)
         {
             if (context.MoneyLeft <= 0)
@@ -37,6 +49,11 @@
             return this.GetActionForRiver(context);
         }
 
+        /// <summary>
+        ///     Returns Players action for the Preflop;
+        /// </summary>
+        /// <param name="context">the game context</param>
+        /// <returns>The player's descision</returns>
         private PlayerAction GetActionForPreFlop(GetTurnContext context)
         {
             var playHand = HandStrengthValuation.PreFlop(this.FirstCard, this.SecondCard);
@@ -103,6 +120,11 @@
             return PlayerAction.CheckOrCall();
         }
 
+        /// <summary>
+        ///     Returns Players action for the Flop;
+        /// </summary>
+        /// <param name="context">the game context</param>
+        /// <returns>The player's descision</returns>
         private PlayerAction GetActionForFlop(GetTurnContext context)
         {
             var playHand = HandStrengthValuation.Flop(this.FirstCard, this.SecondCard, this.CommunityCards);
@@ -165,6 +187,11 @@
             return PlayerAction.CheckOrCall();
         }
 
+        /// <summary>
+        ///     Returns Players action for the Turn;
+        /// </summary>
+        /// <param name="context">the game context</param>
+        /// <returns>The player's descision</returns>
         private PlayerAction GetActionForTurn(GetTurnContext context)
         {
             var playHand = HandStrengthValuation.Turn(this.FirstCard, this.SecondCard, this.CommunityCards);
@@ -213,6 +240,11 @@
             return PlayerAction.CheckOrCall();
         }
 
+        /// <summary>
+        ///     Returns Players action for the River;
+        /// </summary>
+        /// <param name="context">the game context</param>
+        /// <returns>The player's descision</returns>
         private PlayerAction GetActionForRiver(GetTurnContext context)
         {
             var playHand = HandStrengthValuation.River(this.FirstCard, this.SecondCard, this.CommunityCards);
