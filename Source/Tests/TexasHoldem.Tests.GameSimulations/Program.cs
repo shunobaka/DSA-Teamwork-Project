@@ -8,11 +8,11 @@
     {
         public static void Main()
         {
-            SimulateGames(new TuringVsExtended());
-            SimulateGames(new SmartVsExtended());
-            SimulateGames(new AlwaysInVsExtended());
-            SimulateGames(new AlwaysRiseVsExtended());
-            //SimulateGames(new TuringVsDummyPlayer());
+            SimulateGames(new TuringVsASmartPlayer());
+            SimulateGames(new TuringVsAlwaysAllInPlayer());
+            SimulateGames(new TuringVsAlwaysCallPlayer());
+            SimulateGames(new TuringVsAlwaysRaisePlayer());
+            SimulateGames(new TuringVsDummyPlayer());
         }
 
         private static void SimulateGames(IGameSimulator gameSimulator)

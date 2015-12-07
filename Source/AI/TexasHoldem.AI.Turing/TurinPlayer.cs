@@ -1,18 +1,15 @@
-﻿using System;
-using System.Linq;
-
-namespace TexasHoldem.AI.Turing
+﻿namespace TexasHoldem.AI.Turing
 {
-    using TexasHoldem.AI.Turing.Helpers;
-    using TexasHoldem.Logic;
-    using TexasHoldem.Logic.Extensions;
-    using TexasHoldem.Logic.Players;
+    using System;
+    using System.Linq;
 
-    // TODO: This player is far far away from being smart!
+    using Helpers;
+    using Logic;
+    using Logic.Extensions;
+    using Logic.Players;
+
     public class TurinPlayer : BasePlayer
     {
-        private int counter = 0;
-
         public override string Name
         {
             get;
@@ -24,24 +21,23 @@ namespace TexasHoldem.AI.Turing
             {
                 return PlayerAction.CheckOrCall();
             }
+
             if (context.RoundType == GameRoundType.PreFlop)
             {
                 return this.GetActionForPreFlop(context);
             }
-            else if (context.RoundType == GameRoundType.Flop)
+
+            if (context.RoundType == GameRoundType.Flop)
             {
                 return this.GetActionForFlop(context);
             }
-            else if (context.RoundType == GameRoundType.Turn)
+
+            if (context.RoundType == GameRoundType.Turn)
             {
                 return this.GetActionForTurn(context);
             }
-            else if (context.RoundType == GameRoundType.River)
-            {
-                return this.GetActionForRiver(context);
-            }
 
-            return PlayerAction.CheckOrCall();
+            return this.GetActionForRiver(context);
         }
 
         private PlayerAction GetActionForPreFlop(GetTurnContext context)
@@ -59,8 +55,6 @@ namespace TexasHoldem.AI.Turing
 
             if (playHand == CardValuationType.Risky)
             {
-                var smallBlindsTimes = RandomProvider.Next(1, 2);
-
                 if (context.CanCheck)
                 {
                     return PlayerAction.CheckOrCall();
@@ -95,8 +89,6 @@ namespace TexasHoldem.AI.Turing
                 {
                     return PlayerAction.Raise(10000);
                 }
-
-                var smallBlindsTimes = RandomProvider.Next(3, 5);
 
                 if (context.MoneyToCall <= context.MoneyLeft / 5)
                 {
