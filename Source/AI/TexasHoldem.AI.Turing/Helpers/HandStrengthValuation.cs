@@ -120,7 +120,6 @@ namespace TexasHoldem.AI.Turing.Helpers
             cards.Add(secondCard);
 
             var bestHand = handEvaluator.GetBestHand(cards);
-
             if (bestHand.RankType >= Logic.HandRankType.FourOfAKind)
             {
                 return CardValuationType.PlayItAllIn;
@@ -153,25 +152,18 @@ namespace TexasHoldem.AI.Turing.Helpers
             cards.Add(firstCard);
             cards.Add(secondCard);
 
-            var playerCards = new List<Card>();
-            playerCards.Add(firstCard);
-            playerCards.Add(secondCard);
-
             var bestHand = handEvaluator.GetBestHand(cards);
-
             if (bestHand.RankType <= Logic.HandRankType.Pair)
             {
                 return CardValuationType.Unplayable;
             }
 
-            if (
-                bestHand.RankType <= Logic.HandRankType.TwoPairs)
+            if (bestHand.RankType <= Logic.HandRankType.TwoPairs)
             {
                 return CardValuationType.Risky;
             }
 
-            if (bestHand.RankType > Logic.HandRankType.TwoPairs &&
-                bestHand.RankType <= Logic.HandRankType.Straight)
+            if (bestHand.RankType > Logic.HandRankType.TwoPairs && bestHand.RankType <= Logic.HandRankType.Straight)
             {
                 return CardValuationType.Recommended;
             }

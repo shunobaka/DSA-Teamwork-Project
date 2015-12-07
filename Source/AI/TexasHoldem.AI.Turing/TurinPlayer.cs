@@ -10,10 +10,7 @@
 
     public class TurinPlayer : BasePlayer
     {
-        public override string Name
-        {
-            get;
-        } = "TuringPlayer_" + Guid.NewGuid();
+        public override string Name { get; } = "TuringPlayer_" + Guid.NewGuid();
 
         public override PlayerAction GetTurn(GetTurnContext context)
         {
@@ -100,7 +97,6 @@
 
             if (playHand == CardValuationType.StronglyRecommended)
             {
-                var smallBlindsTimes = RandomProvider.Next(5, 8);
                 return PlayerAction.Raise(context.SmallBlind * 5);
             }
 
@@ -163,7 +159,6 @@
 
             if (playHand == CardValuationType.StronglyRecommended)
             {
-                var smallBlindsTimes = RandomProvider.Next(14, 28);
                 return PlayerAction.Raise(context.SmallBlind * 30);
             }
 
@@ -192,7 +187,6 @@
 
             if (playHand == CardValuationType.Risky)
             {
-                var smallBlindsTimes = RandomProvider.Next(1, 4);
                 if (context.CanCheck)
                 {
                     return PlayerAction.CheckOrCall();
@@ -208,14 +202,11 @@
 
             if (playHand == CardValuationType.Recommended)
             {
-                var smallBlindsTimes = RandomProvider.Next(6, 14);
-
                 return PlayerAction.Raise(context.SmallBlind * 20);
             }
 
             if (playHand == CardValuationType.StronglyRecommended)
             {
-                var smallBlindsTimes = RandomProvider.Next(14, 28);
                 return PlayerAction.Raise(context.SmallBlind * 30);
             }
 
@@ -254,14 +245,11 @@
 
             if (playHand == CardValuationType.Recommended)
             {
-                var smallBlindsTimes = RandomProvider.Next(6, 14);
-
                 return PlayerAction.Raise(context.SmallBlind * 20);
             }
 
             if (playHand == CardValuationType.StronglyRecommended)
             {
-                var smallBlindsTimes = RandomProvider.Next(14, 28);
                 return PlayerAction.Raise(context.SmallBlind * 1000);
             }
 
