@@ -1,4 +1,7 @@
-﻿namespace TexasHoldem.AI.TuringExtended
+﻿using System.Collections.Generic;
+using TexasHoldem.Logic.Cards;
+
+namespace TexasHoldem.AI.TuringExtended
 {
     using System;
     using System.Linq;
@@ -16,7 +19,10 @@
         private int raisesOnTurn = 0;
         private int raisesOnRiver = 0;
 
-        public override string Name { get; } = "TuringExtendedPlayer_" + Guid.NewGuid();
+        public override string Name
+        {
+            get;
+        } = "TuringExtendedPlayer_" + Guid.NewGuid();
 
         public override PlayerAction GetTurn(GetTurnContext context)
         {
@@ -59,8 +65,6 @@
 
             if (playHand == CardValuationType.Risky)
             {
-                var smallBlindsTimes = RandomProvider.Next(1, 2);
-
                 if (context.CanCheck)
                 {
                     return PlayerAction.CheckOrCall();
@@ -126,15 +130,12 @@
 
             if (playHand == CardValuationType.Unplayable)
             {
-
                 if (context.CanCheck)
                 {
                     return PlayerAction.CheckOrCall();
                 }
-                else
-                {
-                    return PlayerAction.Fold();
-                }
+
+                return PlayerAction.Fold();
             }
 
             if (playHand == CardValuationType.Risky)
@@ -145,6 +146,21 @@
                 }
 
                 return PlayerAction.Fold();
+            }
+
+            HandEvaluatorExtension handEvaluator = new HandEvaluatorExtension();
+            var cards = new List<Card>();
+            cards.AddRange(this.CommunityCards);
+            cards.Add(this.FirstCard);
+            cards.Add(this.SecondCard);
+            var handsInCommunity = handEvaluator.GetBestHandForFlop(cards);
+
+            if (handsInCommunity.RankType == HandRankType.Pair)
+            {
+                if (this.FirstCard.Type < CardType.Ten && this.SecondCard.Type < CardType.Ten)
+                {
+                    return PlayerAction.Fold();
+                }
             }
 
             if (playHand == CardValuationType.Recommended)
@@ -176,6 +192,10 @@
                     this.raisesOnPreFlop += 1;
                     return PlayerAction.Raise(context.SmallBlind * 4);
                 }
+                else
+                {
+                    return PlayerAction.Fold();
+                }
             }
 
             return PlayerAction.CheckOrCall();
@@ -187,19 +207,11 @@
 
             if (playHand == CardValuationType.Unplayable)
             {
-                if (context.CanCheck)
-                {
-                    return PlayerAction.CheckOrCall();
-                }
-                else
-                {
-                    return PlayerAction.Fold();
-                }
+                return PlayerAction.Fold();
             }
 
             if (playHand == CardValuationType.Risky)
             {
-                var smallBlindsTimes = RandomProvider.Next(1, 4);
                 if (context.CanCheck)
                 {
                     return PlayerAction.CheckOrCall();
@@ -215,7 +227,7 @@
 
             if (playHand == CardValuationType.Recommended)
             {
-                if (this.raisesOnTurn < 2)
+                if (this.raisesOnTurn < 1)
                 {
                     this.raisesOnTurn += 1;
                     return PlayerAction.Raise(context.SmallBlind * 4);
@@ -224,7 +236,7 @@
 
             if (playHand == CardValuationType.StronglyRecommended)
             {
-                if (this.raisesOnTurn < 2)
+                if (this.raisesOnTurn < 1)
                 {
                     this.raisesOnTurn += 1;
                     var smallBlindsTimes = RandomProvider.Next(8, 18);
@@ -247,25 +259,11 @@
                 {
                     return PlayerAction.CheckOrCall();
                 }
-                else
-                {
-                    return PlayerAction.Fold();
-                }
             }
 
             if (playHand == CardValuationType.Risky)
             {
-                if (context.CanCheck)
-                {
-                    return PlayerAction.CheckOrCall();
-                }
-
-                if (context.MoneyToCall <= context.MoneyLeft / 20)
-                {
-                    return PlayerAction.CheckOrCall();
-                }
-
-                return PlayerAction.Fold();
+                return PlayerAction.CheckOrCall();
             }
 
             if (playHand == CardValuationType.Recommended)
@@ -275,7 +273,7 @@
                 if (this.raisesOnRiver < 3)
                 {
                     this.raisesOnRiver += 1;
-                    return PlayerAction.Raise(context.SmallBlind * smallBlindsTimes);
+                    return PlayerAction.Raise(200);
                 }
             }
 
@@ -284,7 +282,7 @@
                 if (this.raisesOnRiver >= 1)
                 {
                     this.raisesOnRiver++;
-                    return PlayerAction.Raise(500);
+                    return PlayerAction.Raise(10000);
                 }
 
                 return PlayerAction.CheckOrCall();
