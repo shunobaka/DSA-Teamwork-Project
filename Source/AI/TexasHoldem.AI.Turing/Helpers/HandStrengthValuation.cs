@@ -1,8 +1,8 @@
 ﻿namespace TexasHoldem.AI.Turing.Helpers
 {
-    using Logic.Helpers;
     using System.Collections.Generic;
-    using TexasHoldem.Logic.Cards;
+    using Logic.Helpers;
+    using Logic.Cards;
 
     public static class HandStrengthValuation
     {
@@ -10,23 +10,21 @@
 
         private static readonly int[,] StartingHandRecommendations =
             {
-               // A  K  Q  J  T  9  8  7  6  5  4  3  2
-                { 4, 4, 3, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1 }, // A 
-                { 3, 4, 3, 3, 2, 2, 1, 1, 0, 0, 0, 0, 0 }, // K
-                { 3, 3, 4, 3, 2, 2, 1, 0, 0, 0, 0, 0, 0 }, // Q
-                { 3, 3, 2, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0 }, // J
-                { 2, 2, 2, 2, 3, 2, 1, 0, 0, 0, 0, 0, 0 }, // T
-                { 2, 2, 1, 1, 2, 3, 2, 1, 0, 0, 0, 0, 0 }, // 9
-                { 1, 1, 0, 0, 0, 1, 3, 1, 1, 0, 0, 0, 0 }, // 8
-                { 1, 0, 0, 0, 0, 0, 1, 2, 1, 0, 0, 0, 0 }, // 7
-                { 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0 }, // 6
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0 }, // 5
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 }, // 4
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 }, // 3
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 }  // 2
+                { 4, 4, 3, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1 },
+                { 3, 4, 3, 3, 2, 2, 1, 1, 0, 0, 0, 0, 0 },
+                { 3, 3, 4, 3, 2, 2, 1, 0, 0, 0, 0, 0, 0 },
+                { 3, 3, 2, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0 },
+                { 2, 2, 2, 2, 3, 2, 1, 0, 0, 0, 0, 0, 0 },
+                { 2, 2, 1, 1, 2, 3, 2, 1, 0, 0, 0, 0, 0 },
+                { 1, 1, 0, 0, 0, 1, 3, 1, 1, 0, 0, 0, 0 },
+                { 1, 0, 0, 0, 0, 0, 1, 2, 1, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 }
             };
 
-        // http://www.rakebackpros.net/texas-holdem-starting-hands/
         public static CardValuationType PreFlop(Card firstCard, Card secondCard)
         {
             var value = firstCard.Suit == secondCard.Suit
@@ -110,7 +108,6 @@
             playerCards.Add(firstCard);
             playerCards.Add(secondCard);
 
-            //var bestHand = handEvaluator.GetBestHand(cards);
             var outsValuation = new GameOutsValuation();
             var outsResult = outsValuation.CalculateOuts(playerCards, cards);
 

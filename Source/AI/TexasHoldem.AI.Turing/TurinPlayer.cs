@@ -12,6 +12,7 @@ namespace TexasHoldem.AI.Turing
     public class TurinPlayer : BasePlayer
     {
         private int counter = 0;
+
         public override string Name
         {
             get;
@@ -52,6 +53,7 @@ namespace TexasHoldem.AI.Turing
                 {
                     return PlayerAction.CheckOrCall();
                 }
+
                 return PlayerAction.Fold();
             }
 
@@ -63,6 +65,7 @@ namespace TexasHoldem.AI.Turing
                 {
                     return PlayerAction.CheckOrCall();
                 }
+
                 if (context.IsAllIn)
                 {
                     return PlayerAction.Fold();
@@ -77,7 +80,6 @@ namespace TexasHoldem.AI.Turing
                 {
                     return PlayerAction.Fold();
                 }
-
 
                 return PlayerAction.CheckOrCall();
             }
@@ -154,10 +156,10 @@ namespace TexasHoldem.AI.Turing
                     {
                         return PlayerAction.CheckOrCall();
                     }
+
                     return PlayerAction.Fold();
                 }
 
-                // this one is not working but it is an idea :)
                 if (context.PreviousRoundActions.ToArray()
                         .Any(s => s.Action.Type == PlayerActionType.Raise && s.PlayerName != this.Name))
                 {
@@ -203,11 +205,11 @@ namespace TexasHoldem.AI.Turing
                 {
                     return PlayerAction.CheckOrCall();
                 }
+
                 if (context.MoneyToCall <= context.MoneyLeft / 20)
                 {
                     return PlayerAction.CheckOrCall();
                 }
-
 
                 return PlayerAction.Fold();
             }
@@ -254,7 +256,6 @@ namespace TexasHoldem.AI.Turing
                 {
                     return PlayerAction.CheckOrCall();
                 }
-
 
                 return PlayerAction.Fold();
             }

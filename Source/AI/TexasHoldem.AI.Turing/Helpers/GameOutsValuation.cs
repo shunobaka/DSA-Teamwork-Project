@@ -1,8 +1,8 @@
 ﻿namespace TexasHoldem.AI.Turing.Helpers
 {
+    using System.Collections.Generic;
     using Logic.Cards;
     using Logic.Helpers;
-    using System.Collections.Generic;
 
     public class GameOutsValuation
     {
@@ -61,9 +61,6 @@
 
             long wins = 0, ties = 0, loses = 0, count = 0;
 
-            // Iterate through all possible opponent hole cards
-            // This is one because it is very slow otherwise.
-            // I have tested it and there is not much of a difference
             for (var i = 0; i < 1; i++)
             {
                 var otherHand = new HashSet<Card>();
