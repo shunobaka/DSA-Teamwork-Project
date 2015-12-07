@@ -6,16 +6,6 @@
 
     public class GameOutsValuation
     {
-        private const int OpenEndStraightDrawOuts = 6;
-        private const int GutShotStraightDrawOuts = 3;
-        private const int FlushDrawOuts = 9;
-        private const int TwoPairFullHouseDrawOuts = 4;
-        private const int ThreeOfAKindFullHouseDrawOuts = 6;
-        private const int PairWithPlayerCardDrawOuts = 6;
-        private const int TwoPairDrawOuts = 9;
-        private const int ThreeOfAKindDrawOuts = 2;
-        private const int FourOfAKindDrawOuts = 1;
-
         public double CalculateOuts(IEnumerable<Card> playerCards, IEnumerable<Card> cards)
         {
             var deck = new List<Card>();
@@ -100,7 +90,8 @@
                 }
             }
 
-            var percent = (((double)wins) + ((double)ties) / 2.0) / ((double)count) * 100.0;
+            var percent = (((double)wins) + (((double)ties) / 2.0)) / ((double)count) * 100.0;
+
             return percent;
         }
     }
